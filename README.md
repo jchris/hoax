@@ -1,6 +1,6 @@
 # hoax
 
-ReSTful JSON client with path currying by pax.
+Couch client using pax for path currying and request for HTTP.
 
 ## Getting Started
 Install the module with: `npm install hoax`
@@ -23,5 +23,5 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 _(Nothing yet)_
 
 ## License
-Copyright (c) 2013 Chris Anderson  
-Licensed under the Apache2 license.
+Copyright (c) 2013 Chris Anderson
+Licensed under the Apache license.
