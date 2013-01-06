@@ -182,7 +182,31 @@ exports['/query'] = {
       test.done();
     });
   },
-  'put query': function(test) {
+  'put array query w/ body': function(test) {
+    // test.expect(2);
+    // tests here
+    query.put([{myquery:"exciting"}], {"lo":"el"}, function(err, json){
+      // console.log(ok.statusCode, body);
+      test.equal(err, null);
+      test.ok(json.url, 'should have query');
+      test.deepEqual(json.body, '{"lo":"el"}', 'should be in the body.');
+      test.deepEqual(json.url, "/very/awesome?myquery=exciting", 'should be "exciting".');
+      test.done();
+    });
+  },
+  'put query w/ body': function(test) {
+    // test.expect(2);
+    // tests here
+    query.put({myquery:"exciting"}, {"lo":"el"}, function(err, json){
+      // console.log(ok.statusCode, body);
+      test.equal(err, null);
+      test.ok(json.url, 'should have query');
+      test.deepEqual(json.body, '{"lo":"el"}', 'should be in the body.');
+      test.deepEqual(json.url, "/very/awesome?myquery=exciting", 'should be "exciting".');
+      test.done();
+    });
+  },
+  'put query no body': function(test) {
     // test.expect(2);
     // tests here
     query.put([{myquery:"exciting"}], function(err, json){
