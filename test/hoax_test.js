@@ -32,8 +32,13 @@ exports['/awesome'] = {
       res.end(JSON.stringify({awesome:true}));
     };
     handlers['/very/awesome'] = function(req, res) {
-      res.statusCode = 200;
-      res.end(JSON.stringify({awesome:true, method : req.method, body:req.body}));
+      var body = "";
+      req.on("data", function(data) {body = body + data;});
+      req.on("end", function(){
+        res.statusCode = 200;
+        res.end(JSON.stringify({hey:"ok",awesome:true, method : req.method, body:body}));
+      });
+
     };
     handlers['/very/awesome/coat'] = function(req, res) {
       res.statusCode = 200;
@@ -64,7 +69,7 @@ exports['/awesome'] = {
     // test.expect()
     hoax.put("http://localhost:3001/very/awesome", {my:"data"}, function(err, json){
       test.equal(err, null);
-      test.equal(json.body, true, 'should be json.');
+      test.equal(json.body, '{"my":"data"}', 'should be json.');
       test.equal(json.awesome, true, 'should be awesome.');
       test.equal(json.method, 'PUT', 'should be put.');
       test.done();
@@ -74,7 +79,7 @@ exports['/awesome'] = {
     // test.expect()
     hoax.put(["http://localhost:3001/","very","awesome"], {my:"data"}, function(err, json){
       test.equal(err, null);
-      test.equal(json.body, true, 'should be json.');
+      test.equal(json.body, '{"my":"data"}', 'should be json.');
       test.equal(json.awesome, true, 'should be awesome.');
       test.equal(json.method, 'PUT', 'should be put.');
       test.done();
@@ -119,6 +124,18 @@ exports['/awesome'] = {
       test.equal(err, null);
       test.equal(json.awesome, true, 'should be awesome.');
       test.equal(json.method, 'PUT', 'should be put.');
+      test.done();
+    });
+  },
+  '200 array curry post' : function(test) {
+    // test.expect()
+    var host = hoax("http://localhost:3001/"),
+      resource = host(["very","awesome"]);
+    resource.post("",{myjson:"safe"}, function(err, json){
+      test.equal(err, null);
+      test.equal(json.body, '{"myjson":"safe"}', 'should be json.');
+      test.equal(json.awesome, true, 'should be awesome.');
+      test.equal(json.method, 'POST', 'should be put.');
       test.done();
     });
   },
