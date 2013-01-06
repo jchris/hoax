@@ -33,7 +33,7 @@ exports['/awesome'] = {
     };
     handlers['/very/awesome'] = function(req, res) {
       res.statusCode = 200;
-      res.end(JSON.stringify({awesome:true, method : req.method}));
+      res.end(JSON.stringify({awesome:true, method : req.method, body:req.body}));
     };
     handlers['/very/awesome/coat'] = function(req, res) {
       res.statusCode = 200;
@@ -60,10 +60,11 @@ exports['/awesome'] = {
       test.done();
     });
   },
-  '200 put' : function(test) {
+  '200 put JSON' : function(test) {
     // test.expect()
-    hoax.put("http://localhost:3001/very/awesome", function(err, json){
+    hoax.put("http://localhost:3001/very/awesome", {my:"data"}, function(err, json){
       test.equal(err, null);
+      test.equal(json.body, true, 'should be json.');
       test.equal(json.awesome, true, 'should be awesome.');
       test.equal(json.method, 'PUT', 'should be put.');
       test.done();
@@ -71,8 +72,9 @@ exports['/awesome'] = {
   },
   '200 array put' : function(test) {
     // test.expect()
-    hoax.put(["http://localhost:3001/","very","awesome"], function(err, json){
+    hoax.put(["http://localhost:3001/","very","awesome"], {my:"data"}, function(err, json){
       test.equal(err, null);
+      test.equal(json.body, true, 'should be json.');
       test.equal(json.awesome, true, 'should be awesome.');
       test.equal(json.method, 'PUT', 'should be put.');
       test.done();
