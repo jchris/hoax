@@ -1,26 +1,29 @@
 # hoax
 
-Couch client using pax for path currying and request for HTTP.
+JSON HTTP client using [pax](https://npmjs.org/package/pax) for path currying and request for HTTP.
+
+Used by [coax](https://npmjs.org/package/coax)
 
 ## Getting Started
 Install the module with: `npm install hoax`
 
 ```javascript
 var hoax = require('hoax');
-hoax.awesome(); // "awesome"
+
+hoax(["http://localhost:3001/","very","awesome"], function(err, json){
+	console.log("fetched", json)
+});
+
+// currying
+var server = hoax("http://localhost:3001/"),
+	path = server("very", {query : "params"});
+
+// put JSON to "http://localhost:3001/very/awesome?query=params"
+path.put("awesome", {some:"data"}, function(err, json){
+	console.log("put json", json);
+});
+
 ```
-
-## Documentation
-_(Coming soon)_
-
-## Examples
-_(Coming soon)_
-
-## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
-
-## Release History
-_(Nothing yet)_
 
 ## License
 Copyright (c) 2013 Chris Anderson
