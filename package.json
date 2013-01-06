@@ -1,7 +1,7 @@
 {
   "name": "hoax",
-  "description": "Couch client using pax for path currying and request for HTTP.",
-  "version": "0.2.0",
+  "description": "Restful JSON client using pax for path currying and request for HTTP.",
+  "version": "0.2.1",
   "homepage": "https://github.com/jchris/hoax",
   "author": {
     "name": "Chris Anderson",
