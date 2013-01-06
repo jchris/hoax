@@ -36,9 +36,8 @@ exports['/awesome'] = {
       req.on("data", function(data) {body = body + data;});
       req.on("end", function(){
         res.statusCode = 200;
-        res.end(JSON.stringify({hey:"ok",awesome:true, method : req.method, body:body}));
+        res.end(JSON.stringify({url:req.url,awesome:true, method : req.method, body:body}));
       });
-
     };
     handlers['/very/awesome/coat'] = function(req, res) {
       res.statusCode = 200;
@@ -131,7 +130,7 @@ exports['/awesome'] = {
     // test.expect()
     var host = hoax("http://localhost:3001/"),
       resource = host(["very","awesome"]);
-    resource.post("",{myjson:"safe"}, function(err, json){
+    resource.post("", {myjson:"safe"}, function(err, json){
       test.equal(err, null);
       test.equal(json.body, '{"myjson":"safe"}', 'should be json.');
       test.equal(json.awesome, true, 'should be awesome.');
@@ -152,14 +151,10 @@ exports['/awesome'] = {
   }
 };
 
-var query = hoax("http://localhost:3001/query");
+var query = hoax("http://localhost:3001/very/awesome");
 exports['/query'] = {
   setUp: function(done) {
     // setup here
-    handlers['/query'] = function(req, res) {
-      res.statusCode = 200;
-      res.end(JSON.stringify({url:req.url, method : req.method}));
-    };
     done();
   },
   'get': function(test) {
@@ -170,7 +165,32 @@ exports['/query'] = {
       test.equal(err, null);
       test.ok(json.url, 'should have query');
       // test.ok(json.query.myquery, 'should have query');
-      test.deepEqual(json.url, "/query?myquery=exciting", 'should be "exciting".');
+      test.deepEqual(json.url, "/very/awesome?myquery=exciting", 'should be "exciting".');
+      test.done();
+    });
+  },
+  'put body': function(test) {
+    // test.expect(2);
+    // tests here
+    query.put({myquery:"exciting"}, function(err, json){
+      // console.log(ok.statusCode, body);
+      test.equal(err, null);
+      test.ok(json.url, 'should have query');
+      // test.ok(json.query.myquery, 'should have query');
+      test.deepEqual(json.url, "/very/awesome", 'should be boring.');
+      test.deepEqual(json.body, '{"myquery":"exciting"}', 'should be in the body.');
+      test.done();
+    });
+  },
+  'put query': function(test) {
+    // test.expect(2);
+    // tests here
+    query.put([{myquery:"exciting"}], function(err, json){
+      // console.log(ok.statusCode, body);
+      test.equal(err, null);
+      test.ok(json.url, 'should have query');
+      // test.ok(json.query.myquery, 'should have query');
+      test.deepEqual(json.url, "/very/awesome?myquery=exciting", 'should be "exciting".');
       test.done();
     });
   }
