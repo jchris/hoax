@@ -1,0 +1,36 @@
+{
+  "name": "hoax",
+  "description": "ReSTful JSON client with path currying by pax.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/jchris/hoax",
+  "author": {
+    "name": "Chris Anderson",
+    "email": "jchris@couchbase.com",
+    "url": "http://www.couchbase.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jchris/hoax.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jchris/hoax/issues"
+  },
+  "licenses": [
+    {
+      "type": "Apache2",
+      "url": "https://github.com/jchris/hoax/blob/master/LICENSE-Apache2"
+    }
+  ],
+  "main": "lib/hoax",
+  "engines": {
+    "node": "~0.8.16"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.3.6"
+  },
+  "keywords": []
+}
