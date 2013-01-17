@@ -22,6 +22,7 @@
     }
   ],
   "main": "lib/hoax",
+  "browserify": "lib/hoax-browserify",
   "engines": {
     "node": "~0.8.16"
   },
@@ -30,7 +31,8 @@
   },
   "dependencies": {
     "pax" : "0.2",
-    "request" : "2.12"
+    "request" : "2.12",
+    "browser-request" : "0.2"
   },
   "devDependencies": {
     "grunt": "~0.3.6"
