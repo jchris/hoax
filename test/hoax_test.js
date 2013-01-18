@@ -241,3 +241,28 @@ exports['/error'] = {
     });
   }
 };
+
+var db;
+exports['extensions'] = {
+  setUp: function(done) {
+    // setup here
+    db = hoax("http://localhost:5984/test-pax", {myKey : "valuable"});
+    db.extend('mymethod', function(){return 'ok';});
+    done();
+  },
+  'is callable': function(test) {
+    test.expect(1);
+    // tests here
+    test.equal(db.mymethod(), 'ok');
+    test.done();
+  },
+  'is inherited': function(test) {
+    test.expect(1);
+    // tests here
+    var doc = db("deeper");
+    test.equal(doc.mymethod(), 'ok');
+    test.done();
+  }
+};
+
+
