@@ -1,7 +1,7 @@
 {
   "name": "hoax",
   "description": "Restful JSON client using pax for path currying and request for HTTP.",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "homepage": "https://github.com/jchris/hoax",
   "author": {
     "name": "Chris Anderson",
@@ -32,7 +32,7 @@
   "dependencies": {
     "pax" : "0.2",
     "request" : "2.12",
-    "browser-request" : "0.2.1"
+    "browser-request" : "0.3"
   },
   "devDependencies": {
     "grunt": "~0.3.6"
